@@ -1,0 +1,22 @@
+{
+  "name": "dott",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "run:file": "",
+    "run:files": "",
+    "run:generator": "",
+    "build": "tsc"
+  },
+  "author": "Stefan Hariton<hariton.stefan@outlook.com>",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.0",
+    "benchmark": "^2.1.4"
+  }
+}
