@@ -39,11 +39,12 @@ function distance(a, b) {
     return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1])
 }
 
-function inline(matrix) {
+function inline(n, m, matrix) {
     const whiteSpots = whites(matrix);
-    for (let i = 0; i < matrix.length; i++) {
+    const result = [];
+    for (let i = 0; i < n; i++) {
         let line = [];
-        for (let j = 0; j < matrix[i].length; j++) {
+        for (let j = 0; j < m; j++) {
             if (matrix[i][j]) {
                 line.push(0);
             } else {
@@ -53,49 +54,9 @@ function inline(matrix) {
                 }, Infinity))
             }
         }
-        // console.log(line.join(' '));
+        result.push(line);
     }
-}
-
-function recurse(n, m, matrix) {
-    const matrix2 = Array.from(Array(n), () => Array.from(Array(m)));
-    const cache = {};
-    function closest(p = [0, 0]) {
-        const x = p[0];
-        const y = p[1];
-        const cacheKey = `${x}:${y}`;
-        if (cache.hasOwnProperty(cacheKey)) {
-            return cache[cacheKey]
-        }
-        if (
-            (x < 0 || y < 0) ||
-            (x > n-1 || y > n-1)
-        ) {
-            return Infinity;
-        }
-        if (matrix[x][y]) {
-            matrix2[x][y] = 0;
-            return 0;
-        }
-
-        let min = 1 + [
-            closest([x, y + 1]),
-            closest([x + 1, y]),
-            closest([x + 1, y + 1]),
-        ].reduce((agg, v) => {
-            return v < agg ? v : agg
-        }, Infinity);
-
-        matrix2[x][y] = min;
-
-        return min
-    }
-
-    const results = closest();
-
-    console.log(matrix2);
-
-    return results
+    return result;
 }
 
 function generator(n = 182, m = 182) {
@@ -114,10 +75,8 @@ const m = [
     [0, 0, 1, 1],
     [0, 1, 1, 0]
 ]
-recurse(3, 4, m);
 
 module.exports = {
-    whites,
-    whites3,
+    inline,
     generator,
 }
