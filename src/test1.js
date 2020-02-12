@@ -1,50 +1,26 @@
-const functions = require('./index.js');
-const Benchmark = require('benchmark');
+const fncts = require('./raw.js');
+const fs = require('fs');
 
-const suite = new Benchmark.Suite();
+const matrix = JSON.parse(fs.readFileSync('./data.json'));
 
-const t = {
-    whites1: 0,
-    whites2: 0,
-    whites3: 0,
-}
+setTimeout(async () => {
+    let start = process.hrtime().pop();
+    let w2 = fncts.whites2(matrix);
+    let w2t = (process.hrtime().pop() - start) / 1000000;
 
-const bench = new Benchmark();
-const matrix = functions.generator();
+    await new Promise((resolve => setTimeout(resolve, 3000)));
 
-suite.add('whites1', () => {
-    functions.whites(matrix);   
-});
-suite.add('whites2', () => {
-    functions.whites2(matrix);   
-});
-suite.add('whites3', () => {
-    functions.whites3(matrix);   
-})
+    start = process.hrtime().pop();
+    let w1 = fncts.whites(matrix);
+    let w1t = (process.hrtime().pop() - start) / 1000000;
 
-suite.on('complete', function() {
-    console.log('Fastest is ' + this.filter('fastest').map('name'));
-    t[this.filter('fastest').map('name')]++;
-    console.log('Slowest is ' + this.filter('slowest').map('name'));
-})
+    await new Promise((resolve => setTimeout(resolve, 3000)));
 
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
-suite.run();
+    start = process.hrtime().pop();
+    let w3 = fncts.whites3(matrix);
+    let w3t = (process.hrtime().pop() - start) / 1000000;
 
-
-console.log(t);
+    console.log('w1t', w1t, w1[0]);
+    console.log('w2t', w2t, w2[0]);
+    console.log('w3t', w3t, w3[0]);
+}, 3000);

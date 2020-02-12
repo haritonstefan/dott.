@@ -12,29 +12,12 @@ function whites(g) {
     }, [])
 }
 
-function whites2(g) {
-    let whites = [];
-    let i = 0;
-    let j = 0;
-    for (let v of g) {
-        for (let p of v) {
-            if (p) {
-                whites.push([i, j]);
-            };
-            j++;
-        }
-        i++;
-    }
-
-    return whites
-}
-
 function whites3(g) {
     let whites = [];
     let n = g.length;
     let m = g[0].length;
     for (let i = 0; i < n; i++) {
-        for (j = 0; j < m; j++) {
+        for (let j = 0; j < m; j++) {
             if (g[i][j]) {
                 whites.push([i, j])
             }
@@ -74,6 +57,47 @@ function inline(matrix) {
     }
 }
 
+function recurse(n, m, matrix) {
+    const matrix2 = Array.from(Array(n), () => Array.from(Array(m)));
+    const cache = {};
+    function closest(p = [0, 0]) {
+        const x = p[0];
+        const y = p[1];
+        const cacheKey = `${x}:${y}`;
+        if (cache.hasOwnProperty(cacheKey)) {
+            return cache[cacheKey]
+        }
+        if (
+            (x < 0 || y < 0) ||
+            (x > n-1 || y > n-1)
+        ) {
+            return Infinity;
+        }
+        if (matrix[x][y]) {
+            matrix2[x][y] = 0;
+            return 0;
+        }
+
+        let min = 1 + [
+            closest([x, y + 1]),
+            closest([x + 1, y]),
+            closest([x + 1, y + 1]),
+        ].reduce((agg, v) => {
+            return v < agg ? v : agg
+        }, Infinity);
+
+        matrix2[x][y] = min;
+
+        return min
+    }
+
+    const results = closest();
+
+    console.log(matrix2);
+
+    return results
+}
+
 function generator(n = 182, m = 182) {
     return Array.apply(null, new Array(n)).map(() => {
         return Array.apply(null, new Array(m)).map(() => {
@@ -82,11 +106,18 @@ function generator(n = 182, m = 182) {
     })
 }
 
-console.log(generator(10, 10))
+// const m = generator(15, 15);
+//
+
+const m = [
+    [0, 0, 0, 1],
+    [0, 0, 1, 1],
+    [0, 1, 1, 0]
+]
+recurse(3, 4, m);
 
 module.exports = {
     whites,
-    whites2,
     whites3,
     generator,
 }

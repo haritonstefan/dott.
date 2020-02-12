@@ -1,10 +1,9 @@
-const attemtps = 50;
-const fs = require('./index');
+const fncts = require('./raw.js');
+const fs = require('fs');
 
-const input = fs.generator();
+const matrix = JSON.parse(fs.readFileSync('./data.json'));
 
-for (let t = 1; t <= attemtps; t++) {
-    console.time(`#${t}`);
-    fs.whites2(input);
-    console.timeEnd(`#${t}`);
-}
+let start = process.hrtime().pop();
+fncts.whites2(matrix);
+let end = process.hrtime().pop();
+console.log((end - start) / 1000000);
