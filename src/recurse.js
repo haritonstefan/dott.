@@ -5,8 +5,8 @@ function print(m) {
 }
 
 function recurse(n, m, matrix) {
-    const resultMatrix = Array.from(Array(n), () => Array.from(Array(m).fill(-1)))
-    function compute(x, y, q = 0) {
+    const resultMatrix = Array.from(Array(n), () => Array.from(Array(m).fill(-1)));
+    function compute(x, y, q = Infinity) {
         if (
             (x < 0 || y < 0) ||
             (x >= n || y >= m)
@@ -14,12 +14,14 @@ function recurse(n, m, matrix) {
             return Infinity
         }
 
-        if (matrix[x][y] === 1) {
-            q = 0
+        if (resultMatrix[x][y] > -1) {
+            console.log('cache');
+            return resultMatrix[x][y];
         }
 
-        if (resultMatrix[x][y] > -1) {
-            return resultMatrix[x][y];
+        if (matrix[x][y] === 1) {
+            resultMatrix[x][y] = 0;
+            q = 0;
         }
 
         if (x === n - 1 && y === m -1) {
@@ -31,7 +33,6 @@ function recurse(n, m, matrix) {
             q,
             compute(x + 1, y, q + 1),
             compute(x, y + 1, q + 1),
-            compute(x + 1, y + 1, q + 1),
         ].reduce((agg, v) => {
             return agg < v ? agg : v;
         }, Infinity);
@@ -52,6 +53,8 @@ const m = [
     [0, 0, 1, 1],
     [0, 1, 1, 0],
 ];
+
+print(recurse(3, 4, m));
 
 module.exports = {
     recurse,
