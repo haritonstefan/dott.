@@ -24,8 +24,14 @@ export default class Matrix extends Array<Vector> {
         )
     }
 
+    public static print(matrix: Matrix): void {
+        for (let vector of matrix) {
+            console.log(vector.join(' '));
+        }
+    }
+
     public static initialize(n: number, m: number, defaultValue: number = Infinity) {
-        return Matrix.from(Array(n), () => Vector.from(Array(m).fill(defaultValue)));
+        return new Matrix(n, m, Array.from(Array(n), () => new Vector(Array.from(Array(m).fill(defaultValue)))))
     }
 
     public getValue(point: Coordinate): number {
