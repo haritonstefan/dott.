@@ -4,19 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
-    "run:file": "",
-    "run:files": "",
-    "run:generator": "",
+    "start": "npm run build && node dist/index.js",
     "build": "tsc -p tsconfig.json"
   },
   "author": "Stefan Hariton<hariton.stefan@outlook.com>",
   "license": "ISC",
   "dependencies": {
     "typescript": "^3.7.5"
-  },
-  "devDependencies": {
-    "@types/node": "^13.7.1",
-    "benchmark": "^2.1.4"
   }
 }
