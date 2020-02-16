@@ -10,4 +10,8 @@ export default class Coordinate extends Array {
     static distance(a: Coordinate, b: Coordinate): number {
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
+
+    log() {
+        console.log(`${this.x}${this.y}`);
+    }
 }

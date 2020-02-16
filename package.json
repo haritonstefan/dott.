@@ -8,7 +8,7 @@
     "run:file": "",
     "run:files": "",
     "run:generator": "",
-    "build": "tsc"
+    "build": "tsc -p tsconfig.json"
   },
   "author": "Stefan Hariton<hariton.stefan@outlook.com>",
   "license": "ISC",
