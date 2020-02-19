@@ -1,3 +1,4 @@
+import { inspect } from 'util';
 export default class Coordinate extends Array {
     public readonly x: number;
     public readonly y: number;
@@ -11,7 +12,7 @@ export default class Coordinate extends Array {
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
 
-    log() {
-        console.log(`${this.x}${this.y}`);
+    [inspect.custom]() {
+        return `[${this.x}:${this.y}]`;
     }
 }

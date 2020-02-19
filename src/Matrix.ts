@@ -1,18 +1,15 @@
+import { inspect } from 'util';
 import Vector from './Vector';
 import Coordinate from './Coordinate';
 
-export default class Matrix extends Array<Vector> {
-    protected readonly n: number;
-    protected readonly m: number;
+export default class Matrix extends Array<Vector | Array<number>> {
+    public readonly n: number;
+    public readonly m: number;
 
-    constructor(n: number, m: number, data: Vector[]) {
+    constructor(data: Vector[] | Array<Array<number>>) {
         super(...data);
-        this.n = n;
-        this.m = m;
-    }
-
-    protected isRightExtreme(point: Coordinate): boolean {
-        return point.x === this.n - 1 && point.y === this.m - 1;
+        this.n = data.length;
+        this.m = data[0].length;
     }
 
     protected isOutOfBounds(point: Coordinate): boolean {
@@ -24,14 +21,17 @@ export default class Matrix extends Array<Vector> {
         )
     }
 
-    public static print(matrix: Matrix): void {
-        for (let vector of matrix) {
-            console.log(vector.join(' '));
+    [inspect.custom](): string {
+        let lines = '';
+        for (let vector of this) {
+            lines += `[${vector.join(',')}],\n `;
         }
+
+        return `[${lines.trim()}]`;
     }
 
     public static initialize(n: number, m: number, defaultValue: number = Infinity) {
-        return new Matrix(n, m, Array.from(Array(n), () => new Vector(Array.from(Array(m).fill(defaultValue)))))
+        return new Matrix(Array.from(Array(n), () => new Vector(Array.from(Array(m).fill(defaultValue)))))
     }
 
     public getVertices(): Array<Coordinate> {
@@ -47,14 +47,27 @@ export default class Matrix extends Array<Vector> {
     }
 
     public distance(a: Coordinate, b: Coordinate): number {
-        // if (Coordinate.distance(a, b) === 1) {
-        //     return 1 + this.getPointValue(b);
-        // }
         return this.getPointValue(a) + this.getPointValue(b);
     }
 
-    public getVector(index: number) {
-        return this[index] ?? Array.from(Array(this.m).fill(Infinity));
+    public static compare(a: Matrix, b: Matrix): boolean {
+        if (
+            a.n !== b.n ||
+            a.m !== b.m
+        ) {
+            return false;
+        }
+
+        for (let i = 0; i < a.n; i++) {
+            for (let j = 0; j < a.m; j++) {
+                const point = new Coordinate(i, j);
+                if (a.getPointValue(point) !== b.getPointValue(point)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public getPointValue(point: Coordinate): number {
