@@ -34,11 +34,34 @@ export default class Matrix extends Array<Vector> {
         return new Matrix(n, m, Array.from(Array(n), () => new Vector(Array.from(Array(m).fill(defaultValue)))))
     }
 
-    public getValue(point: Coordinate): number {
+    public getVertices(): Array<Coordinate> {
+        const vertices: Array<Coordinate> = [];
+
+        for (let i = 0; i < this.n; i++) {
+            for (let j = 0; j < this.m; j++) {
+                vertices.push(new Coordinate(i, j));
+            }
+        }
+
+        return vertices;
+    }
+
+    public distance(a: Coordinate, b: Coordinate): number {
+        // if (Coordinate.distance(a, b) === 1) {
+        //     return 1 + this.getPointValue(b);
+        // }
+        return this.getPointValue(a) + this.getPointValue(b);
+    }
+
+    public getVector(index: number) {
+        return this[index] ?? Array.from(Array(this.m).fill(Infinity));
+    }
+
+    public getPointValue(point: Coordinate): number {
         return this[point.x]?.[point.y] ?? Infinity;
     }
 
-    public setValue(point: Coordinate, value: number): void {
+    public setPointValue(point: Coordinate, value: number): void {
         this[point.x][point.y] = value;
     }
 }
