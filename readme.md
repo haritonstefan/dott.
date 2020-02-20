@@ -1,11 +1,14 @@
 # Dott challenge
 
-The challenge was to find the closest white pixel in a bitmap for each black pixel.
-The current implementation is a naive, sub-optimal, brute-force implementation which is comprised of 2 steps:
+The challenge was to find the closest white pixel (marked with 1) in a bitmap for each black pixel (marked with 0).
 
-1. Filter out the white pixels.
-2. Find the closest out of the array extracted in p1.
+There are 2 algorithms implemented to solve this challenge:
+* Simple iteration over each points, with subsequent iteration of the "whites" points in order to compute the shortest distance
+* An approach based on BFS
 
-The index file generates an 182 by 182 matrix, then runs the above algorithm to find the distances.
+The project has 2 entry points:
+* `npm run start` Will pop-up a prompt with questions about the test input, and the will use the BFS based algorithm
+* `npm run start:random <n> <m>` Will generate a random bitmap, of size `n*m` and will attempt it to solve using both methods 
+and compare their results and execution time.
 
-This would've been implemented better using Dijkstra or Floyd-Warshall algorithms, but there is a long time since I've implemented either, and I wasn't able to quickly clean the dust from that knowledge.
+Additionally there are unit tests written closing to 100% coverage.

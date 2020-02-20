@@ -8,7 +8,7 @@
     "start:random": "node dist/index.js",
     "build": "rm -Rf dist && tsc -p tsconfig.json",
     "test": "mocha",
-    "test-coverage": "nyc mocha",
+    "test:coverage": "nyc mocha",
     "prepublish": "npm run build"
   },
   "author": "Stefan Hariton<hariton.stefan@outlook.com>",
