@@ -10,9 +10,13 @@
   "author": "Stefan Hariton<hariton.stefan@outlook.com>",
   "license": "ISC",
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/mocha": "^7.0.1",
     "@types/node": "^13.7.2",
+    "mocha": "^7.0.1",
+    "mocha-typescript": "^1.1.17",
+    "nyc": "^15.0.0",
     "ts-node": "^8.6.2",
-    "typescript": "^3.7.5",
-    "tap": "^14.10.6"
+    "typescript": "^3.7.5"
   }
 }

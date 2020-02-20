@@ -14,12 +14,13 @@ export default class Queue<T> {
   }
 
   public enqueue(value: T): void {
-    const queueElement = new QueueElement(this._last, value);
+    const queueElement = new QueueElement(value);
     if (this._last) {
       this._last.next = queueElement;
     }
     this._last = queueElement;
     this._length++;
+
     if (!this._first) {
       this._first = queueElement;
     }
@@ -40,13 +41,10 @@ export default class Queue<T> {
       next: (): IteratorResult<T> => {
         const done = this.length === 0;
         if (done) {
-          return {
-            value: null,
-            done: true,
-          }
+          return { done: true, value: null };
         }
         const value: T = this.dequeue();
-        return {done: this.length === 0, value}
+        return { done: false, value };
       },
     }
   }

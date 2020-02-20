@@ -1,10 +1,8 @@
 export default class QueueElement<T> {
-  private _previous: QueueElement<T>;
-  private _next: QueueElement<T>;
+  private _next: QueueElement<T> = null;
   private readonly _value: T;
 
-  constructor(previous: QueueElement<T>, value: T, next: QueueElement<T> = null) {
-    this._previous = previous;
+  constructor(value: T, next?: QueueElement<T>) {
     this._value = value;
     this._next = next;
   }
