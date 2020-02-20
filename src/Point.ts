@@ -1,6 +1,6 @@
 import { inspect } from 'util';
 
-export default class Coordinate {
+export default class Point {
   public readonly x: number;
   public readonly y: number;
 
@@ -9,7 +9,7 @@ export default class Coordinate {
     this.y = y;
   }
 
-  static distance(a: Coordinate, b: Coordinate): number {
+  static distance(a: Point, b: Point): number {
     return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
   }
 

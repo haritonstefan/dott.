@@ -1,15 +1,16 @@
 import { inspect } from 'util';
-import Vector      from './Vector';
-import Coordinate  from './Coordinate';
+import Line        from './Line';
+import Point       from './Point';
 
-export default class Matrix extends Array<Vector | Array<number>> {
+export default class Matrix extends Array<Line | Array<number>> {
   public readonly n: number;
   public readonly m: number;
 
-  constructor(data: Vector[]) {
+  constructor(args?: Line[]) {
+    let data = args ? args : [[]];
     super(...data);
-    this.n = data.length;
-    this.m = data[0].length;
+    this.n = data.length ?? 0;
+    this.m = data[0]?.length ?? 0;
   }
 
   [inspect.custom](): string {
@@ -21,16 +22,16 @@ export default class Matrix extends Array<Vector | Array<number>> {
     return `[${lines.trim()}]`;
   }
 
-  protected getAccessibleNeighbours(point: Coordinate): Coordinate[] {
+  protected getAccessibleNeighbours(point: Point): Point[] {
     return [
-      new Coordinate(point.x + 1, point.y),
-      new Coordinate(point.x, point.y + 1),
-      new Coordinate(point.x - 1, point.y),
-      new Coordinate(point.x, point.y - 1),
-    ].filter((point: Coordinate) => this.isInsideBounds(point))
+      new Point(point.x + 1, point.y),
+      new Point(point.x, point.y + 1),
+      new Point(point.x - 1, point.y),
+      new Point(point.x, point.y - 1),
+    ].filter((point: Point) => this.isInsideBounds(point))
   }
 
-  protected isInsideBounds(point: Coordinate): boolean {
+  protected isInsideBounds(point: Point): boolean {
     return (
       point.x < this.n &&
       point.x >= 0 &&
@@ -39,23 +40,23 @@ export default class Matrix extends Array<Vector | Array<number>> {
     )
   }
 
-  public getVertices(): Array<Coordinate> {
-    const vertices: Array<Coordinate> = [];
+  public getAllPoints(): Array<Point> {
+    const vertices: Array<Point> = [];
 
     for (let i = 0; i < this.n; i++) {
       for (let j = 0; j < this.m; j++) {
-        vertices.push(new Coordinate(i, j));
+        vertices.push(new Point(i, j));
       }
     }
 
     return vertices;
   }
 
-  public getVertexValue(point: Coordinate): number {
+  public getPointValue(point: Point): number {
     return this[point.x]?.[point.y] ?? Infinity;
   }
 
-  public setVertexValue(point: Coordinate, value: number): void {
+  public setPointValue(point: Point, value: number): void {
     this[point.x][point.y] = value;
   }
 
@@ -67,8 +68,8 @@ export default class Matrix extends Array<Vector | Array<number>> {
       return false;
     }
 
-    for (let vertex of a.getVertices()) {
-      if (a.getVertexValue(vertex) !== b.getVertexValue(vertex)) {
+    for (let vertex of a.getAllPoints()) {
+      if (a.getPointValue(vertex) !== b.getPointValue(vertex)) {
         return false;
       }
     }
@@ -77,6 +78,6 @@ export default class Matrix extends Array<Vector | Array<number>> {
   }
 
   public static initialize(n: number, m: number, defaultValue: number = Infinity) {
-    return new Matrix(Array.from(Array(n), () => new Vector(Array.from(Array(m).fill(defaultValue)))))
+    return new Matrix(Array.from(Array(n), () => new Line(Array.from(Array(m).fill(defaultValue)))))
   }
 }

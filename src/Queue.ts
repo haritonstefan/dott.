@@ -28,7 +28,7 @@ export default class Queue<T> {
 
   public dequeue(): T {
     if (!this._first) {
-      throw new Error('Can\'t dequeue from empty queue');
+      throw new Error('Cannot dequeue from empty queue');
     }
     const queueElement = this._first;
     this._first = queueElement.next;
