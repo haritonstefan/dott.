@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import Bitmap from './Bitmap';
 import Matrix from './Matrix';
 

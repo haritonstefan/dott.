@@ -1,7 +1,8 @@
 import { suite, test } from 'mocha-typescript';
 import * as assert     from 'assert';
-import Matrix from './Matrix';
-import Point  from './Point';
+import * as util       from "util";
+import Matrix          from './Matrix';
+import Point           from './Point';
 @suite class MatrixSpec {
   @test instantiate() {
     const matrix = new Matrix();
@@ -42,6 +43,11 @@ import Point  from './Point';
 
     const pointValue = matrix.getPointValue(point);
     assert.equal(pointValue, value);
+
+    const outOfBoundsPoint = new Point(5, 5);
+    assert.throws(() => {
+      matrix.getPointValue(outOfBoundsPoint)
+    }, new Error(`Point ${outOfBoundsPoint} is out of bounds`));
   }
 
   @test setPointValue() {
@@ -53,6 +59,11 @@ import Point  from './Point';
     matrix.setPointValue(point, newValue);
 
     assert.equal(matrix.getPointValue(point), newValue);
+
+    const outOfBoundsPoint = new Point(5, 5);
+    assert.throws(() => {
+      matrix.setPointValue(outOfBoundsPoint, 1)
+    }, new Error(`Point ${outOfBoundsPoint} is out of bounds`));
   }
 
   @test compare() {
@@ -70,5 +81,16 @@ import Point  from './Point';
     const matrixD = new Matrix([[value + 1]]);
     assert.ok(!Matrix.compare(matrixA, matrixD));
     assert.ok(!Matrix.compare(matrixC, matrixD));
+  }
+
+  @test inspect() {
+    const value = 42;
+
+    const matrix = new Matrix([[value]]);
+
+    const inspectResults = matrix[util.inspect.custom]();
+
+    assert.ok(inspectResults);
+    assert.ok(typeof inspectResults === 'string');
   }
 }

@@ -1,13 +1,18 @@
 import Point  from './Point';
 import Line   from './Line';
 import Matrix from './Matrix';
-import Queue      from './Queue';
+import Queue  from './Queue';
 
 export default class Bitmap extends Matrix {
   private _whites: Array<Point> | null = null;
 
-  constructor(data: Matrix) {
+  constructor(data: Array<Array<number>>) {
     super(data);
+  }
+
+  public setPointValue(point: Point, value: number): void {
+    this._whites = null;
+    super.setPointValue(point, value);
   }
 
   private extractWhites(): Array<Point> {

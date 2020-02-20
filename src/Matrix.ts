@@ -53,10 +53,16 @@ export default class Matrix extends Array<Line | Array<number>> {
   }
 
   public getPointValue(point: Point): number {
-    return this[point.x]?.[point.y] ?? Infinity;
+    if (!this.isInsideBounds(point)) {
+      throw new Error(`Point ${point} is out of bounds`);
+    }
+    return this[point.x][point.y];
   }
 
   public setPointValue(point: Point, value: number): void {
+    if (!this.isInsideBounds(point)) {
+      throw new Error(`Point ${point} is out of bounds`);
+    }
     this[point.x][point.y] = value;
   }
 
