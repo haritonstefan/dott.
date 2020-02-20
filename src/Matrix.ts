@@ -15,12 +15,12 @@ export default class Matrix extends Array<Array<number>> {
   }
 
   [inspect.custom](): string {
-    let lines = '';
+    let lines = [];
     for (let vector of this) {
-      lines += `[${vector.join(',')}],\n `;
+      lines.push(` [${vector.join(', ')}]`);
     }
 
-    return `[${lines.trim()}]`;
+    return `[${lines.join(', \n').trim()}]`;
   }
 
   protected getAccessibleNeighbours(point: Point): Point[] {
