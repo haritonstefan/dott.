@@ -1,22 +1,17 @@
 /* istanbul ignore file */
-import Bitmap from './Bitmap';
-import Matrix from './Matrix';
+import Bitmap    from './Bitmap';
+import generator from './generator';
+import Matrix    from './Matrix';
 
-// const generated = generator(1000, 1000);
-const generated = new Matrix([
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 1],
-  [0, 0, 0],
-]);
-const y = new Bitmap(generated);
+const generated = generator(50, 50);
+const bitmap = new Bitmap(generated);
 
 let start = new Date().getTime();
-let results = y.magic();
+let results = bitmap.estimateClosestWhiteBruteForce();
 let end = new Date().getTime();
 
 let start1 = new Date().getTime();
-let results1 = y.bfs();
+let results1 = bitmap.estimateClosestWhiteBFS();
 let end1 = new Date().getTime();
 
 console.log(generated);

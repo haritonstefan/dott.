@@ -15,13 +15,12 @@ export default class Bitmap extends Matrix {
     super.setPointValue(point, value);
   }
 
-  private extractWhites(): Array<Point> {
+  private extractPointsMatchingCriteria(): Array<Point> {
     let whites: Array<Point> = [];
-    for (let i = 0; i < this.n; i++) {
-      for (let j = 0; j < this.m; j++) {
-        if (this[i]?.[j]) {
-          whites.push(new Point(i, j))
-        }
+    const points = this.getAllPoints();
+    for (const point of points) {
+      if (this.getPointValue(point) === 1) {
+        whites.push(point);
       }
     }
     return whites;
@@ -29,12 +28,12 @@ export default class Bitmap extends Matrix {
 
   get whites() {
     if (!this._whites) {
-      this._whites = this.extractWhites();
+      this._whites = this.extractPointsMatchingCriteria();
     }
     return this._whites;
   }
 
-  public magic(): Matrix {
+  public estimateClosestWhiteBruteForce(): Matrix {
     const result: Matrix = new Bitmap(Matrix.initialize(this.n, this.m));
 
     for (let i = 0; i < this.n; i++) {
@@ -55,7 +54,7 @@ export default class Bitmap extends Matrix {
     return result;
   }
 
-  public bfs() {
+  public estimateClosestWhiteBFS() {
     const result: Bitmap = new Bitmap(Matrix.initialize(this.n, this.m));
 
     const queue = new Queue<Point>();

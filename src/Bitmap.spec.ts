@@ -38,7 +38,7 @@ class BitmapSpec {
     ]
     const bitmap = new Bitmap(data);
 
-    const result = bitmap.magic();
+    const result = bitmap.estimateClosestWhiteBruteForce();
     assert.ok(result);
     assert.equal(result.getPointValue(new Point(0, 0)), 2);
     assert.equal(result.getPointValue(new Point(0, 1)), 1);
@@ -53,7 +53,7 @@ class BitmapSpec {
     ]
     const bitmap = new Bitmap(data);
 
-    const result = bitmap.bfs();
+    const result = bitmap.estimateClosestWhiteBFS();
     assert.ok(result);
     assert.equal(result.getPointValue(new Point(0, 0)), 2);
     assert.equal(result.getPointValue(new Point(0, 1)), 1);

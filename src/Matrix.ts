@@ -3,14 +3,16 @@ import Line        from './Line';
 import Point       from './Point';
 
 export default class Matrix extends Array<Line | Array<number>> {
+  private _points: Array<Point>;
   public readonly n: number;
   public readonly m: number;
 
   constructor(args?: Line[]) {
     let data = args ? args : [[]];
     super(...data);
-    this.n = data.length ?? 0;
-    this.m = data[0]?.length ?? 0;
+    this.n = data.length;
+    this.m = data[0].length;
+    this._points = null;
   }
 
   [inspect.custom](): string {
@@ -41,15 +43,20 @@ export default class Matrix extends Array<Line | Array<number>> {
   }
 
   public getAllPoints(): Array<Point> {
-    const vertices: Array<Point> = [];
+    if (this._points) {
+      return this._points;
+    }
+    const points: Array<Point> = [];
 
     for (let i = 0; i < this.n; i++) {
       for (let j = 0; j < this.m; j++) {
-        vertices.push(new Point(i, j));
+        points.push(new Point(i, j));
       }
     }
 
-    return vertices;
+    this._points = points;
+
+    return points;
   }
 
   public getPointValue(point: Point): number {
