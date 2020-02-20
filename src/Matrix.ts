@@ -1,13 +1,12 @@
 import { inspect } from 'util';
-import Line        from './Line';
 import Point       from './Point';
 
-export default class Matrix extends Array<Line | Array<number>> {
+export default class Matrix extends Array<Array<number>> {
   private _points: Array<Point>;
   public readonly n: number;
   public readonly m: number;
 
-  constructor(args?: Line[]) {
+  constructor(args?: Array<Array<number>>) {
     let data = args ? args : [[]];
     super(...data);
     this.n = data.length;
@@ -91,6 +90,7 @@ export default class Matrix extends Array<Line | Array<number>> {
   }
 
   public static initialize(n: number, m: number, defaultValue: number = Infinity) {
-    return new Matrix(Array.from(Array(n), () => new Line(Array.from(Array(m).fill(defaultValue)))))
+    const data = Array.from(Array(n), () => Array.from(Array(m).fill(defaultValue)))
+    return new Matrix(data)
   }
 }

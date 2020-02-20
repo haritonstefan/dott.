@@ -1,5 +1,4 @@
 import Point  from './Point';
-import Line   from './Line';
 import Matrix from './Matrix';
 import Queue  from './Queue';
 
@@ -37,7 +36,7 @@ export default class Bitmap extends Matrix {
     const result: Matrix = new Bitmap(Matrix.initialize(this.n, this.m));
 
     for (let i = 0; i < this.n; i++) {
-      let line: Line = new Line([]);
+      let line: Array<number> = [];
       for (let j = 0; j < this.m; j++) {
         let point = new Point(i, j);
         if (this.getPointValue(point)) {
