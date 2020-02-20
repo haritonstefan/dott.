@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node dist/index.js",
-    "build": "tsc -p tsconfig.json"
+    "start": "node dist/index.js",
+    "build": "rm -Rf dist && tsc -p tsconfig.json",
+    "test": "mocha",
+    "test-coverage": "nyc mocha",
+    "prepublish": "npm run build"
   },
   "author": "Stefan Hariton<hariton.stefan@outlook.com>",
   "license": "ISC",
