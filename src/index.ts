@@ -3,7 +3,15 @@ import Bitmap    from './Bitmap';
 import generator from './generator';
 import Matrix    from './Matrix';
 
-const generated = generator(50, 50);
+let n = 50;
+let m = 50;
+
+if (process.argv.length === 4) {
+  n = parseInt(process.argv[2])
+  m = parseInt(process.argv[3])
+}
+
+const generated = generator(n, m);
 const bitmap = new Bitmap(generated);
 
 let start = new Date().getTime();

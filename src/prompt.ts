@@ -1,4 +1,5 @@
-import * as assert   from "assert";
+/* istanbul ignore file */
+import * as assert   from 'assert';
 import * as readline from 'readline'
 import { inspect }   from 'util';
 import Bitmap        from './Bitmap';
@@ -12,7 +13,7 @@ function parseLine(line: string): Array<number> {
   return line.trim().split(' ').map(v => parseInt(v));
 }
 
-(async function() {
+(async function () {
   let testCasesToRun = 0;
   let currentTestCase = 1;
 
@@ -50,9 +51,9 @@ function parseLine(line: string): Array<number> {
 
     const bitmap = new Bitmap(lines);
     console.log('For the bitmap');
-    console.table(bitmap.values());
+    console.log(bitmap);
     console.log('I computed the following distances matrix');
-    console.log(bitmap.estimateClosestWhiteBFS()[inspect.custom]());
+    console.log(bitmap.estimateClosestWhiteBFS());
     currentTestCase++;
   }
 
