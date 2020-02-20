@@ -1,11 +1,11 @@
 import { suite, test } from 'mocha-typescript';
-import * as assert                    from 'assert';
-import Vector                   from './Vector';
+import * as assert from 'assert';
+import Line        from './Line';
 
-@suite class VectorSpec {
+@suite class LineSpec {
   @test instantiateWithArray() {
     const value = [41, 42, 43];
-    const vector = new Vector(value);
+    const vector = new Line(value);
     assert.ok(vector);
     assert.equal(vector.length, value.length);
     value.forEach((v: number, index: number) => {

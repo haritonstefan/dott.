@@ -31,6 +31,14 @@ class QueueSpec {
     assert.equal(queue.length, 0);
   }
 
+  @test dequeueEmptyQueue() {
+    const queue = new Queue<number>();
+
+    assert.throws(() => {
+      queue.dequeue();
+    }, new Error('Cannot dequeue from empty queue'));
+  }
+
   @test iterator() {
     const values = [42, 43, 42];
     const queue = new Queue<number>();
