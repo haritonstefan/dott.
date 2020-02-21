@@ -22,11 +22,13 @@ let start1 = new Date().getTime();
 let results1 = bitmap.estimateClosestWhiteBFS();
 let end1 = new Date().getTime();
 
-console.log(generated);
-console.log('------');
-console.log(results);
-console.log((end - start));
-console.log(results1);
-console.log((end1 - start1));
+const cannotBeLogged = n > 21 || m > 21;
 
-console.log(Matrix.compare(results, results1));
+cannotBeLogged ? console.log('\x1b[31m', 'Matrix to large to be displayed') : console.log('\x1b[0m', generated);
+console.log('------');
+cannotBeLogged ? console.log('\x1b[31m', 'Matrix to large to be displayed') : console.log('\x1b[0m', results);
+console.log('\x1b[32m', `Brute force method took ${end - start} milliseconds`);
+cannotBeLogged ? console.log('\x1b[31m', 'Matrix to large to be displayed') : console.log('\x1b[0m', results1);
+console.log('\x1b[32m', `Breadth first method took ${end1 - start1} milliseconds`);
+
+Matrix.compare(results, results1) ? console.log('\x1b[32m', 'The output is equal') : console.log('\x1b[31m', 'The output is not equal');
