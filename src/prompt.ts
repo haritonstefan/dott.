@@ -1,7 +1,6 @@
 /* istanbul ignore file */
 import * as assert   from 'assert';
 import * as readline from 'readline'
-import { inspect }   from 'util';
 import Bitmap        from './Bitmap';
 
 const prompt = readline.createInterface({
@@ -50,10 +49,13 @@ function parseLine(line: string): Array<number> {
     }
 
     const bitmap = new Bitmap(lines);
-    console.log('For the bitmap');
-    console.log(bitmap);
-    console.log('I computed the following distances matrix');
-    console.log(bitmap.estimateClosestWhiteBFS());
+    const start = new Date().getTime();
+    const results = bitmap.estimateClosestWhiteBFS();
+    const duration = new Date().getTime() - start;
+    console.log('\x1b[32m', 'For the bitmap:');
+    console.log('\x1b[0m', bitmap);
+    console.log('\x1b[32m', `I computed the following distances matrix in ${duration} millisecond:`);
+    console.log('\x1b[0m', results);
     currentTestCase++;
   }
 
