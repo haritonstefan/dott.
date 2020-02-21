@@ -1,7 +1,8 @@
 /* istanbul ignore file */
-import Bitmap    from './Bitmap';
-import generator from './generator';
-import Matrix    from './Matrix';
+import Bitmap            from './Bitmap';
+import { ConsoleColors } from './consoleColors';
+import generator         from './generator';
+import Matrix            from './Matrix';
 
 let n = 50;
 let m = 50;
@@ -24,11 +25,11 @@ let end1 = new Date().getTime();
 
 const cannotBeLogged = n > 21 || m > 21;
 
-cannotBeLogged ? console.log('\x1b[31m', 'Matrix to large to be displayed') : console.log('\x1b[0m', generated);
+cannotBeLogged ? console.log(ConsoleColors.RED, 'Matrix to large to be displayed') : console.log(ConsoleColors.RESET, generated);
 console.log('------');
-cannotBeLogged ? console.log('\x1b[31m', 'Matrix to large to be displayed') : console.log('\x1b[0m', results);
-console.log('\x1b[32m', `Brute force method took ${end - start} milliseconds`);
-cannotBeLogged ? console.log('\x1b[31m', 'Matrix to large to be displayed') : console.log('\x1b[0m', results1);
-console.log('\x1b[32m', `Breadth first method took ${end1 - start1} milliseconds`);
+cannotBeLogged ? console.log(ConsoleColors.RED, 'Matrix to large to be displayed') : console.log(ConsoleColors.RESET, results);
+console.log(ConsoleColors.GREEN, `Brute force method took ${end - start} milliseconds`);
+cannotBeLogged ? console.log(ConsoleColors.RED, 'Matrix to large to be displayed') : console.log(ConsoleColors.RESET, results1);
+console.log(ConsoleColors.RED, `Breadth first method took ${end1 - start1} milliseconds`);
 
-Matrix.compare(results, results1) ? console.log('\x1b[32m', 'The output is equal') : console.log('\x1b[31m', 'The output is not equal');
+Matrix.compare(results, results1) ? console.log(ConsoleColors.RED, 'The output is equal') : console.log(ConsoleColors.RED, 'The output is not equal');

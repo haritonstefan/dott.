@@ -1,7 +1,8 @@
 /* istanbul ignore file */
-import * as assert   from 'assert';
-import * as readline from 'readline'
-import Bitmap        from './Bitmap';
+import * as assert       from 'assert';
+import * as readline     from 'readline'
+import Bitmap            from './Bitmap';
+import { ConsoleColors } from './consoleColors';
 
 const prompt = readline.createInterface({
   input: process.stdin,
@@ -52,10 +53,10 @@ function parseLine(line: string): Array<number> {
     const start = new Date().getTime();
     const results = bitmap.estimateClosestWhiteBFS();
     const duration = new Date().getTime() - start;
-    console.log('\x1b[32m', 'For the bitmap:');
-    console.log('\x1b[0m', bitmap);
-    console.log('\x1b[32m', `I computed the following distances matrix in ${duration} millisecond:`);
-    console.log('\x1b[0m', results);
+    console.log(ConsoleColors.GREEN, 'For the bitmap:');
+    console.log(ConsoleColors.RESET, bitmap);
+    console.log(ConsoleColors.GREEN, `I computed the following distances matrix in ${duration} millisecond:`);
+    console.log(ConsoleColors.RESET, results);
     currentTestCase++;
   }
 
